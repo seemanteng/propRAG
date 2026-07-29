@@ -51,11 +51,11 @@ config cell if you're pointing this at a different scope.
 
 ## Inputs
 
-| File | Contents |
-|---|---|
-| `bridge_gold_graph/graph.gpickle` | The proposition graph from `construct_graph.ipynb` — passage/entity nodes, hyperedge/synonymy/containment-weighted edges |
-| `openie_results_ner_meta-llama_llama-3.3-70b-instruct.json` | OpenIE output: `{"docs": [{"idx", "passage", "propositions": [{"text", "entities"}]}, ...]}` |
-| `hotpotqa.json` | HotpotQA queries: `{"_id", "question", "answer", "type", "supporting_facts": [[title, sent_idx], ...]}` |
+| File | Default path | Contents |
+|---|---|---|
+| `graph.gpickle` | `bridge_gold_graph/` | The proposition graph from `construct_graph.ipynb` — passage/entity nodes, hyperedge/synonymy/containment-weighted edges |
+| `openie_results_ner_meta-llama_llama-3.3-70b-instruct.json` | `PropRAG/outputs/hotpotqa/` | OpenIE output: `{"docs": [{"idx", "passage", "propositions": [{"text", "entities"}]}, ...]}`. `idx` is `"chunk-" + passage` (not a short id) — it's the same value used as the passage node key in the graph, so matching by `idx` here is what ties OpenIE docs back to graph nodes |
+| `hotpotqa.json` | `PropRAG/reproduce/dataset/` | HotpotQA queries: `{"_id", "question", "answer", "type", "supporting_facts": [[title, sent_idx], ...]}` |
 
 ## Requirements
 

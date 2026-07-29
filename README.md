@@ -45,13 +45,13 @@ scope differently.
 
 ## Inputs
 
-Two JSON files, expected in the repo root by default (update `OPENIE_PATH` / `QUERIES_PATH` in the
-config cell if you keep them elsewhere):
+Two JSON files (paths configurable via `OPENIE_PATH` / `QUERIES_PATH` in the config cell; the
+defaults point at their locations under `PropRAG/`):
 
-| File | Contents |
-|---|---|
-| `openie_results_ner_meta-llama_llama-3.3-70b-instruct.json` | OpenIE output: `{"docs": [{"idx", "passage", "extracted_entities", "propositions": [{"text", "entities"}]}, ...]}` |
-| `hotpotqa.json` | HotpotQA queries: `{"_id", "question", "answer", "type", "supporting_facts": [[title, sent_idx], ...], "context": [...]}` |
+| File | Default path | Contents |
+|---|---|---|
+| `openie_results_ner_meta-llama_llama-3.3-70b-instruct.json` | `PropRAG/outputs/hotpotqa/` | OpenIE output: `{"docs": [{"idx", "passage", "extracted_entities", "propositions": [{"text", "entities"}]}, ...]}`. Note: `idx` is not a short id — it's literally `"chunk-" + passage` (the full passage text, prefixed), so passage/entity node keys built from it are long strings. |
+| `hotpotqa.json` | `PropRAG/reproduce/dataset/` | HotpotQA queries: `{"_id", "question", "answer", "type", "supporting_facts": [[title, sent_idx], ...], "context": [...]}` |
 
 Both are produced upstream by PropRAG's offline OpenIE/indexing step (or the original HotpotQA
 release, for the second file) — this notebook only reads them.
@@ -73,8 +73,8 @@ default settings (see Performance notes below).
 
 ## Setup
 
-1. Place the two input JSON files in the repo root (or point `OPENIE_PATH` / `QUERIES_PATH` at their
-   actual location).
+1. Confirm `OPENIE_PATH` / `QUERIES_PATH` in the config cell point at the two input JSON files
+   (defaults assume the `PropRAG/` layout above — update them if yours differs).
 2. Set `GEMMA_MODEL_PATH` in the config cell to your Gemma E4B checkpoint.
 3. Run the notebook top to bottom. Cell 1 (imports/config), Cell 3-4 (load + scope data), Cell 5
    (deterministic edges), Cell 6 (blocking) all run in seconds. The LLM synonymy cell is the slow one.
